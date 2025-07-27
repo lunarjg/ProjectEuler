@@ -1,5 +1,5 @@
 sum = 0
-k = 2
+k = 1
 
 def Fib_seq(n):
   if n == 1 :
@@ -10,8 +10,7 @@ def Fib_seq(n):
     return Fib_seq(n-2) + Fib_seq(n-1)
 
 while Fib_seq(k) <= 4000000 :
-  sum += Fib_seq(k)
-  k += 2
+  sum += Fib_seq(k) if Fib_seq(k) % 2 == 0
+  k += 1
 
 print(sum)
-print(Fib_seq(10))
