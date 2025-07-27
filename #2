@@ -1,0 +1,17 @@
+sum = 0
+k = 2
+
+def Fib_seq(n):
+  if n == 1 :
+    return 1
+  elif n == 2 :
+    return 2
+  else :
+    return Fib_seq(n-2) + Fib_seq(n-1)
+
+while Fib_seq(k) <= 4000000 :
+  sum += Fib_seq(k)
+  k += 2
+
+print(sum)
+print(Fib_seq(10))
