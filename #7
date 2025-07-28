@@ -1,0 +1,11 @@
+primes = [2]
+n = 3
+
+while len(primes) <= 10001 :
+  if any(n % p == 0 for p in primes) == True :
+    n += 1
+  else : 
+    primes.append(n)
+    n += 1
+
+print(primes[10000])
