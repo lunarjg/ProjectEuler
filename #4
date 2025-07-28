@@ -1,0 +1,19 @@
+digit = []
+palindrome_nums = []
+
+def is_palindrome_num(n) :
+  n = str(n)
+  digit = [i for i in str(n)]
+  if digit == digit[::-1] :
+    return True
+  else :
+    return False
+
+for i in range(100,1000) :
+  for j in range(100, 1000) :
+    if is_palindrome_num(i * j) == True:
+      palindrome_nums.append(i * j)
+
+palindrome_nums.sort()
+
+print(palindrome_nums[-1])
