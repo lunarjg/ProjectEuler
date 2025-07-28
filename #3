@@ -15,4 +15,4 @@ for i in prime :
 
 p_facs.sort()
 
-print(p_facs[0])
+print(p_facs[-1])
