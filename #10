@@ -1,0 +1,11 @@
+primes = [2]
+n = 3
+
+while n < 2000000 :
+  if any(n != 0 for p in primes if p <= n ** 0.5) == True :
+    primes.append(n)
+    n += 2
+
+primes.sort()
+primes.remove[-1]
+print(sum(primes))
