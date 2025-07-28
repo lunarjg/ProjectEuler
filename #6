@@ -2,6 +2,6 @@ def square_sum(n) :
   return int(n*(n+1)*(2*n+1)/6)
 
 def sum_square(n) :
-  return int((n*(n-1)/2) ** 2)
+  return int((n*(n+1)/2) ** 2)
 
 print(sum_square(100)-square_sum(100))
