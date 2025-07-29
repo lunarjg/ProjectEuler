@@ -1,0 +1,16 @@
+import math
+
+def find_divisors_num(n) :
+  divisors = set()
+  for k in range(1, math.floor(n ** 0.5) + 1) :
+    if n % k == 0 :
+      divisors.update([k, int(n / k)])
+  return len(divisors) - 1
+
+n = 1
+triangle_num = int(n*(n+1)/2)
+
+while not find_divisors_num(triangle_num) > 500 :
+  n += 1
+
+print(triangle_num)
