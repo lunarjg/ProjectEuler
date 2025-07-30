@@ -1,17 +1,22 @@
 import math
 
 def find_divisors_num(n) :
-  nums = [2] +[2*x + 1 for x in range(1, math.floor(n ** 0.5) + 1)]
-  divisors = []
-  div_count = []
+  nums = [2] + [2*x + 1 for x in range(1, math.isqrt(n) + 1)]
+  divisors = {}
   for k in nums :
     if n % k == 0 :
-      divisors.append(k)
-      n = int(n / k)
-  print(divisors)
-  for x in divisors :
-    div_count.append(divisors.count(x) + 1)
-  return math.prod(div_count)
+      divisors[k] = 0
+      while n % k == 0 :
+        divisors[k] += 1
+        n = int(n / k)
+  if not n == 1:
+    divisors[n] = 1
+  # print(divisors)
+  return math.prod(d + 1 for d in divisors.values()) - 1
 
-print(find_divisors_num(28))
+n = 100000
 
+while not find_divisors_num(n) > 500 :
+  n += 1
+print(n)
+# print(find_divisors_num(32487716))
