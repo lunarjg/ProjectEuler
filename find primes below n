@@ -1,0 +1,16 @@
+#find list primes smaller than n
+
+import math
+
+def primes_below(n) :
+  nums = set([2] + [2*x + 1 for x in range(1, n // 2)])
+  k = 1
+  base = list(nums)[k]
+  while base <= math.isqrt(n) :
+    base_multiples = set(base * x for x in range(1, n // base + 1))
+    nums -= base_multiples
+    k+=1
+    base = list(nums)[k]
+  return nums
+
+print(primes_below(500))
