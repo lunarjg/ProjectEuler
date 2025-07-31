@@ -6,14 +6,11 @@ def primes_below(n) :
   nums = set([2] + [2*x + 1 for x in range(1, n // 2)])
   k = 1 
   smallest_prime = list(nums)[k]
-  while smallest_prime < n :
+  while smallest_prime < n // 2 :
     smallest_prime_multiples = set(smallest_prime * x for x in range(2, n // smallest_prime + 1))
-    if len(smallest_prime_multiples) == 0:
-      break
-    else :
-      nums -= smallest_prime_multiples
-      k+=1
-      smallest_prime = list(nums)[k]
+    nums -= smallest_prime_multiples
+    k+=1
+    smallest_prime = list(nums)[k]
   return nums
 
-print(primes_below(100))
+print(primes_below(94))
