@@ -1,20 +1,31 @@
+#find list primes smaller than n
+
 import math
 
+def primes_below(n) :
+  nums = set([2] + [2*x + 1 for x in range(1, n // 2)])
+  k = 1 
+  smallest_prime = list(nums)[k]
+  while 2 * smallest_prime < n :
+    smallest_prime_multiples = set(smallest_prime * x for x in range(2, n // smallest_prime + 1))
+    nums -= smallest_prime_multiples
+    k+=1
+    smallest_prime = list(nums)[k]
+  return nums
+
 def find_divisors_num(n) :
-  nums = [2] + [2*x + 1 for x in range(1, math.isqrt(n) + 1)]
   divisors = {}
-  for k in nums :
-    if n % k == 0 :
-      divisors[k] = 0
-      while n % k == 0 :
-        divisors[k] += 1
-        n = int(n / k)
+  for p in primes_below(math.isqrt(n)) :
+    if n % p == 0 :
+      divisors[p] = 0
+      while n % p == 0 :
+        divisors[p] += 1
+        n = int(n / p)
   if not n == 1:
     divisors[n] = 1
-  # print(divisors)
   return math.prod(d + 1 for d in divisors.values()) - 1
 
-n = 100000
+n = 10
 
 while not find_divisors_num(n) > 500 :
   n += 1
