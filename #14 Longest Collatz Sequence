@@ -1,0 +1,22 @@
+def collatz_seq(n) :
+  if n % 2 == 0 :
+    return n / 2
+  else :
+    return 3*n + 1
+
+def chain_num(n) :
+  num = 0
+  while not n == 1:
+    n = collatz_seq(n)
+    num += 1
+  return num
+
+max = 0
+num = 0
+
+for n in range(2, 1000000) :
+  if chain_num(n) > max :
+    max = chain_num(n)
+    num = n
+
+print(num)
