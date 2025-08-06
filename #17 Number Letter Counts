@@ -1,6 +1,6 @@
 digit1 = {1:3, 2:3, 3:5, 4:4, 5:4, 6:3, 7:5, 8:5, 9:4} #자릿수 1인 것들
 digit2 = {0:0, 1:6, 2:6, 3:8, 4:8, 5:7, 6:7, 7:9, 8:8, 9:8} #자릿수 2이고 두 번째 자리수가 1인 것들
-ten_multiples = {0:0, 1:3, 2:6, 3:6, 4:6, 5:5, 6:5, 7:7, 8:6, 9:6} # 10부터 90까지 10의 배수들
+ten_multiples = {0:0, 1:3, 2:6, 3:6, 4:5, 5:5, 6:5, 7:7, 8:6, 9:6} # 10부터 90까지 10의 배수들
 high_digit = {100:7, 1000:8}
 
 def letter_counts(n) :
@@ -33,5 +33,3 @@ def letter_counts(n) :
     return digit1[1] + high_digit[1000]
 
 print(sum(letter_counts(n) for n in range(1, 1001)))
-# print(letter_counts(130))
-
