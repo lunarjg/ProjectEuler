@@ -1,0 +1,37 @@
+digit1 = {1:3, 2:3, 3:5, 4:4, 5:4, 6:3, 7:5, 8:5, 9:4} #자릿수 1인 것들
+digit2 = {0:0, 1:6, 2:6, 3:8, 4:8, 5:7, 6:7, 7:9, 8:8, 9:8} #자릿수 2이고 두 번째 자리수가 1인 것들
+ten_multiples = {0:0, 1:3, 2:6, 3:6, 4:6, 5:5, 6:5, 7:7, 8:6, 9:6} # 10부터 90까지 10의 배수들
+high_digit = {100:7, 1000:8}
+
+def letter_counts(n) :
+  result = 0
+  digits = list(map(int, str(n)))[::-1]
+  if len(digits) == 1 : #자릿수 1일 때
+    return digit1[n]
+  elif len(digits) == 2: #자릿수 2일 때
+    if n % 10 == 0 : #10의 배수인 경우 예외처리
+      return ten_multiples[n // 10]
+    elif digits[1] == 1 : #두 번째 자릿수가 1일 때 예외처리
+      return digit2[digits[0]]
+    else : 
+      return ten_multiples[digits[1]] + digit1[digits[0]]
+  elif len(digits) == 3 : #자릿수 3일 때
+    if n % 100 == 0 : #100의 배수인 경우 예외처리
+      return digit1[digits[2]] + high_digit[100]
+    else : 
+      result += digit1[digits[2]] +  high_digit[100] + 3
+      n = n % 100
+      #자릿수 2일 때와 동일하게 처리
+      if n % 10 == 0 : #10의 배수인 경우 예외처리
+        result += ten_multiples[n // 10]
+      elif digits[1] == 1 : #두 번째 자릿수가 1일 때 예외처리
+        result += digit2[digits[0]]
+      else : 
+        result += ten_multiples[digits[1]] + digit1[digits[0]]
+      return result
+  else :
+    return digit1[1] + high_digit[1000]
+
+print(sum(letter_counts(n) for n in range(1, 1001)))
+# print(letter_counts(130))
+
