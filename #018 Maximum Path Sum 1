@@ -5,7 +5,6 @@ def maximum_path_sum(matrix) :
   for i in range(2, n+1) :
     for j in range(len(matrix[n-i])) :
       matrix[n-i][j] += max(matrix[n-i+1][j], matrix[n-i+1][j+1])
-    del matrix[n-i+1]
   return matrix[0][0]
 
 
