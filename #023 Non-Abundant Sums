@@ -7,7 +7,7 @@ def d(n) :
       divisors.update({i, n / i})
   return int(sum(divisors))
 
-abundant_nums = [n for n in range(12, 14062) if d(n) > n]
+abundant_nums = [n for n in range(12, 28123) if d(n) > n]
 abundant_sums = set()
 
 for i in abundant_nums :
