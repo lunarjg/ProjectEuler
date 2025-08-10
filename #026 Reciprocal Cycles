@@ -1,0 +1,16 @@
+def cycle_len(n) :
+  denominator = '9' * len(str(n))
+  if n % 2 == 0 or n % 5 == 0 :
+    return 0
+  else :
+    while not int(denominator) % n == 0 :
+      denominator += '9'
+    return len(str(denominator))
+
+max = [0 , 0] # [cycle_len(d) , d]
+
+for d in range(1, 1000) :
+  if cycle_len(d) > max[0] : 
+    max[0] = cycle_len(d)
+    max[1] = d
+print(max[1])
