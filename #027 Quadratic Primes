@@ -1,7 +1,7 @@
 import math
 
 def primes_below(n) :
-  if n < 2 :
+  if n < 3 :
     return {}
   elif n == 3 :
     return {2}
@@ -19,7 +19,9 @@ def primes_below(n) :
     return nums
 
 def is_prime(n) :
-  if any(n % k == 0 for k in primes_below(math.isqrt(n) + 1)) == True :
+  if n < 0 :
+    return False
+  elif any(n % k == 0 for k in primes_below(math.isqrt(n) + 1)) == True :
     return False
   else :
     return True
@@ -28,16 +30,17 @@ def quadratic_prime(n, a, b) :
   return int(n ** 2 + a * n + b)
 
 max = 0 
+max_ab_product = 0
 n = 0
 
 for a in range(-999, 1000) : 
   for b in list(primes_below(1001)) + [-x for x in primes_below(1001)] :
     n = 0
-    if is_prime(quadratic_prime(n, a, b)) > 0 :
-      print(quadratic_prime(n, a, b))
+    if quadratic_prime(n, a, b) > 0 :
       while is_prime(quadratic_prime(n, a, b)) == True :
         n += 1
       if n > max :
         max = n
+        max_ab_product = a * b
 
-print(max)
+print(max_ab_product)
