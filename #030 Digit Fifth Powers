@@ -1,11 +1,13 @@
-possible_digits = set()
+max_digit = 2
 n = 2
 while 10 ** (n-1) <= 9 ** 5 * n :
-  possible_digits.add(n)
+  max_digit = n
   n += 1
 
-sum = 0
+fifth_powers_sum = 0
 
-for num in range(10, 10 ** (digit - 1)) :
+for num in range(10, 10 ** (max_digit - 1)) :
   if num == sum(int(x) ** 5 for x in str(num)) :
-    sum += num
+    fifth_powers_sum += num
+
+print(fifth_powers_sum)
