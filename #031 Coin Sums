@@ -1,1 +1,21 @@
+from functools import cache
 
+wallet = [100, 50, 20, 5, 2, 1]
+
+@cache
+def coin_ways_num(list) :
+  money = 200
+  if money == 0:
+    return 0
+  else :
+    ways = 0
+    for coin in wallet :
+      for i in range(money // coin, 0, -1) :
+        if i * coin == money :
+          ways += 1
+        else :
+          ways += coin_ways_num(money - i * coin)
+      ways += coin_ways_num([x for x in wallet if x != coin])
+    return ways
+    
+print(coin_ways_num(wallet))
