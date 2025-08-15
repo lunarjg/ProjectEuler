@@ -1,13 +1,17 @@
+power = 5
 max_digit = 2
 n = 2
-while 10 ** (n-1) <= 9 ** 5 * n :
+while 10 ** (n-1) <= 9 ** power * n :
   max_digit = n
   n += 1
 
 fifth_powers_sum = 0
+fifth_powers_list = []
 
-for num in range(10, 10 ** (max_digit - 1)) :
-  if num == sum(int(x) ** 5 for x in str(num)) :
+for num in range(11, 10 ** (max_digit)) :
+  if num == sum(int(x) ** power for x in str(num)) :
     fifth_powers_sum += num
+    fifth_powers_list.append(num)
 
+print(fifth_powers_list)
 print(fifth_powers_sum)
