@@ -4,4 +4,4 @@ def nth_diagonal_sum(n) :
   else :
     return 4 * (4*n**2 - 7*n + 4)
 
-print(sum(nth_diagonal_sum(n) for n in range(1,1002)))
+print(sum(nth_diagonal_sum(n) for n in range(1,502)))
