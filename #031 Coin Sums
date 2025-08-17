@@ -1,4 +1,4 @@
-wallet = [100, 50, 20, 5, 2, 1]
+wallet = [200, 100, 50, 20, 10, 5, 2, 1]
 money = 200
 
 def coin_ways_num(money, wallet) :
