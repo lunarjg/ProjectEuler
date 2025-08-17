@@ -1,25 +1,26 @@
-# from functools import cache
-
 wallet = [100, 50, 20, 5, 2, 1]
 money = 200
 
 def coin_ways_num(money, wallet) :
+  ways = 0
+  coin = wallet[0]
+  
   if money == 0:
     return 0
   else :
     if len(wallet) == 1:
       if money % wallet[0] == 0 :
         return 1
-      else : 
+      else :
         return 0
     else :
-      ways = 0
-      coin = wallet[0]
-      for i in range(0, money // coin + 1) :
-        if i * coin == money :
-          ways += 1
-        else :
-          ways += coin_ways_num(money - i * coin, [x for x in wallet if x != coin])
+      for i in range(0, money // coin) :
+        ways += coin_ways_num(money - i * coin, [x for x in wallet if x != coin])
+      if money % coin == 0 :
+        ways += 1
+      else :
+        ways += coin_ways_num(money, [x for x in wallet if x != coin])
+    print(ways)
     return ways
 
 print(coin_ways_num(money, wallet))
