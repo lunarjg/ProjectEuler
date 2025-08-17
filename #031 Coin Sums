@@ -4,23 +4,14 @@ money = 200
 def coin_ways_num(money, wallet) :
   ways = 0
   coin = wallet[0]
-  
-  if money == 0:
-    return 0
+  if money == 0 :
+    return 1
   else :
     if len(wallet) == 1:
-      if money % wallet[0] == 0 :
-        return 1
-      else :
-        return 0
+      return 1
     else :
-      for i in range(0, money // coin) :
-        ways += coin_ways_num(money - i * coin, [x for x in wallet if x != coin])
-      if money % coin == 0 :
-        ways += 1
-      else :
-        ways += coin_ways_num(money, [x for x in wallet if x != coin])
-    print(ways)
+      for i in range(0, money // coin + 1) :
+        ways += coin_ways_num(money - i * coin, wallet[1:])
     return ways
 
 print(coin_ways_num(money, wallet))
