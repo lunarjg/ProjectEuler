@@ -1,0 +1,19 @@
+numerator = [x for x in range(11, 100) if x % 10 != 0] # 2-digit nums, except for 10 multiples
+
+fractions = list()
+
+for i in numerator :
+  denominator = [x for x in numerator if x > i] # nums bigger than numerator
+  print(denominator)
+  for j in denominator : 
+    i_digits = list(map(int, str(i)))
+    j_digits = list(map(int, str(j)))
+    intersection = list(set(i_digits) & set(j_digits))
+    print(i_digits)
+    print(j_digits)
+    print(intersection)
+    if len(intersection) != 0 :
+      if i * int(str(j) - str(intersection[0])) == j * int(str(i) - str(intersection[0])) :
+        fractions.append((i,j))
+
+print(fractions)
