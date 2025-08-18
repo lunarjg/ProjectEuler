@@ -4,15 +4,18 @@ nums = [x for x in range(1,10)]
 fractions = list()
 
 for i in numerator :
-  denominator = [int(x + y) for x in list(map(str, nums)) for y in str(i)] + [int(y + x) for x in list(map(str, nums)) for y in str(i)] # nums bigger than numerator
-
+  denominator = set([int(x + y) for x in list(map(str, nums)) for y in str(i)] + [int(y + x) for x in list(map(str, nums)) for y in str(i)]) # nums bigger than numerator
+  denominator = [x for x in denominator if x > i]
   for j in denominator :
     i_digits = [x for x in str(i)]
     j_digits = [x for x in str(j)]
     intersection = list((set(i_digits) & set(j_digits)))
-
+    
     for x in intersection :
-      if i * int(str(j).replace(x, '')) == j * int(str(i).replace(x, '')) :
+      i_delx = str(i).replace(x, '') or x
+      j_delx = str(j).replace(x, '') or x
+
+      if i * int(j_delx) == j * int(i_delx) :
         fractions.append((i,j))
 
 print(fractions)
