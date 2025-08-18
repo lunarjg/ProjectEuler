@@ -1,0 +1,20 @@
+from functools import cache
+
+@cache
+def fac(n) :
+  if n == 0 :
+    return 1
+  else :
+    return n * factorial(n-1)
+
+result = []
+n = 1
+
+while 10 ** (n-1) <= n * fac(9) :
+  n += 1
+
+for i in range(10, 10 ** n) :
+  if i == sum(fac(int(x)) for x in str(i)) :
+    result.append(i)
+
+print(sum(result))
