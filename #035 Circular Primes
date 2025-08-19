@@ -1,0 +1,31 @@
+def primes_below(n) :
+  if n < 2 :
+    return {}
+  elif n == 3 :
+    return {2}
+  elif n == 4 :
+    return {2, 3}
+  else :
+    nums = set([2] + [2*x + 1 for x in range(1, n // 2)])
+    k = 1
+    smallest_prime = list(nums)[k]
+    while 2 * smallest_prime < n :
+      smallest_prime_multiples = set(smallest_prime * x for x in range(2, n // smallest_prime + 1))
+      # print(smallest_prime_multiples)
+      nums -= smallest_prime_multiples
+      # print(nums)
+      k += 1
+      smallest_prime = list(nums)[k]
+    return nums
+
+def circular_nums(n) :
+
+  return [int(str(n)[(i+1):] + str(n)[:i+1]) for i in range(len(str(n)))]
+  
+num = 0
+
+for p in primes_below(1000000) :
+  if all(n for n in circular_nums(p) in primes_below(1000000)) == True :
+    num += len(circular_nums(p))
+
+print(num)  
