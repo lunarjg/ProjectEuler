@@ -20,14 +20,14 @@ def primes_below(n) :
 
 def circular_nums(n) :
 
-  return [int(str(n)[(i+1):] + str(n)[:i+1]) for i in range(len(str(n)))]
-  
-num = 0
+  return set([int(str(n)[(i+1):] + str(n)[:i+1]) for i in range(len(str(n)))])
+
 primes = primes_below(1000000)
+circular_prime_candidates = set()
+odd = [1,3,5,7,9]
 
 for p in primes :
-  if set(circular_nums(p)) in set(primes) :
-    num += len(circular_nums(p))
-    primes = list(set(primes) - set(circular_nums(p)))
+  if all(int(x) in odd for x in str(p)) == True :
+    circular_prime_candidates.update(circular_nums(p))
 
-print(num)  
+print(len(circular_prime_candidates & primes))
