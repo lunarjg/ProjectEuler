@@ -23,9 +23,11 @@ def circular_nums(n) :
   return [int(str(n)[(i+1):] + str(n)[:i+1]) for i in range(len(str(n)))]
   
 num = 0
+primes = primes_below(1000000)
 
-for p in primes_below(1000000) :
-  if all(n for n in circular_nums(p) in primes_below(1000000)) == True :
+for p in primes :
+  if set(circular_nums(p)) in set(primes) :
     num += len(circular_nums(p))
+    primes = list(set(primes) - set(circular_nums(p)))
 
 print(num)  
