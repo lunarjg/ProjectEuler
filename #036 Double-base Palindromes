@@ -1,0 +1,27 @@
+def is_palindromic(n) :
+  digit_nums = [x for x in str(n)]
+  if digit_nums == list(reversed(digit_nums)) :
+    return True
+  else :
+    return False
+
+def binarize(n) :
+  if n == 0 :
+    return 0
+  else : 
+    k = 0
+    while n >= 2 ** k :
+      k += 1
+    binary_num = []
+    for i in range(k, 0 , -1) :
+      binary_num.append(n // (2 ** (i-1)))
+      n %= 2 ** (i-1)
+    return int(''.join([str(x) for x in binary_num]))
+
+result = 0
+
+for n in range(1, 1000000) :
+  if is_palindromic(n) == True and is_palindromic(binarize(n)) == True :
+    result += n
+
+print(result)
