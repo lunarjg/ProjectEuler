@@ -11,24 +11,21 @@ def primes_below(n) :
     smallest_prime = list(nums)[k]
     while 2 * smallest_prime < n :
       smallest_prime_multiples = set(smallest_prime * x for x in range(2, n // smallest_prime + 1))
-      # print(smallest_prime_multiples)
       nums -= smallest_prime_multiples
-      # print(nums)
       k += 1
       smallest_prime = list(nums)[k]
     return nums
 
 def circular_nums(n) :
+  return set([int(str(n)[(i):] + str(n)[:i]) for i in range(len(str(n)))])
 
-  return set([int(str(n)[(i+1):] + str(n)[:i+1]) for i in range(len(str(n)))])
+print(circular_nums(197))
 
-primes = primes_below(1000000)
-circular_primes = [2, 3, 5, 7]
-odd = [1,3,7,9]
+primes = set(primes_below(1000000))
+circular_primes = set()
 
 for p in primes :
-  if all(int(x) in odd for x in str(p)) == True and sum(int(x) for x in str(p)) % 3 != 0 :
-    if set(circular_nums(p)) < set(primes) :
-      circular_primes.append(p)
+  if all(y in primes for y in circular_nums(p)) :
+      circular_primes.add(p)
 
-print(len(set(circular_primes)))
+print(len(circular_primes))
