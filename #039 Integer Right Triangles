@@ -1,0 +1,15 @@
+import math
+
+result = set()
+max = 0
+
+for p in range(1, 1001) :
+  for a in range(1, 500) :
+    for b in range(a, 500) :
+      h = math.sqrt(a ** 2 + b ** 2)
+      if h == math.floor(h) and a + b + h == p :
+        result.add((a, b, int(h)))
+  if len(result) > max :
+    max = len(result)
+
+print(max)
