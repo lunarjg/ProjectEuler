@@ -1,7 +1,5 @@
 max_pandigital_prime = 0
-
-def n_digits(n) :
-  return [x for x in range(1, n+1)]
+digits = [x for x in range(1, 10)]
 
 def primes_below(n):
     sieve = [True] * n
@@ -20,9 +18,10 @@ def permutation(nums) :
   else :
     return [x + y for x in nums for y in permutation([n for n in nums if n != x])]
 
-for n in range(2, 10) :
-  for num in permutation(n_digits(n)) :
-    if int(num) in primes_below(987654321) and int(num) > max_pandigital_prime :
-      max_pandigital_prime = int(num)
+for n in [4,7] :
+  for num in permutation(digits[:n]) :
+    if not num[-1] == '2' or '5' :
+      if int(num) in primes_below(7654321) and int(num) > max_pandigital_prime :
+        max_pandigital_prime = int(num)
 
-print(max_pandigital_prime)      
+print(max_pandigital_prime)
