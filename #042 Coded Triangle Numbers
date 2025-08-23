@@ -8,7 +8,7 @@ def word2num(word) :
 count = 0
 
 for word in words :
-  if ((-1 + ((1 + word2num(word)) ** 0.5)) / 2).is_integer() :
+  if ((-1 + ((1 + 8 * word2num(word)) ** 0.5)) / 2).is_integer() :
     count += 1
 
 print(count)
