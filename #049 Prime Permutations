@@ -1,0 +1,23 @@
+from itertools import combinations
+
+result=[]
+
+def primes_below(n):
+    sieve = [True] * n
+    sieve[0:2] = [False, False]
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i):
+                sieve[j] = False
+    return set(i for i, is_prime in enumerate(sieve) if is_prime)
+
+four_digit_primes = [p for p in primes_below(9876) - primes_below(1234) if len(set([int(digit) for digit in str(p)])) == 4]
+
+for i in combinations(four_digit_primes, 3) :
+  i = tuple(sorted([x for x in i]))
+  a,b,c = i
+  if c + a == 2 * b :
+    if sorted(set([int(x) for x in str(a)])) == sorted(set([int(x) for x in str(b)])) and sorted(set([int(x) for x in str(b)])) == sorted(set([int(x) for x in str(c)])) :
+      result.append(i)
+
+print(result)
