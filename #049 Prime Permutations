@@ -11,12 +11,12 @@ def primes_below(n):
                 sieve[j] = False
     return set(i for i, is_prime in enumerate(sieve) if is_prime)
 
-four_digit_primes = [p for p in primes_below(9876) if p >= 1234 and len(set(str(p))) == 4]
+four_digit_primes = [p for p in primes_below(9999) if p > 1000]
 
 for i in combinations(four_digit_primes, 3) :
-  a,b,c = sorted(i)
+  a, b, c = sorted(i)
   if c + a == 2 * b :
     if set(str(a)) == set(str(b)) == set(str(c)):
-      result.append(i)
+      result.append((a, b, c))
 
 print(result)
