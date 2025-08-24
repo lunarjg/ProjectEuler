@@ -1,0 +1,25 @@
+def primes_below(n):
+    sieve = [True] * n
+    sieve[0:2] = [False, False]
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i):
+                sieve[j] = False
+    return set(i for i, is_prime in enumerate(sieve) if is_prime)
+
+def k_term_sum(k) :
+  return [sum(list(sorted(primes_below(n)))[i:i+k]) for i in range(len(primes_below(n))-k)]
+
+n = 1000000
+primes = primes_below(n)
+isbreak = False
+
+for k in range(len(primes) - 1, 1, -1) :
+  max_value = max(k_term_sum(k))
+  for prime_sum in k_term_sum(k) :
+    if prime_sum in primes :
+      print(prime_sum, k)
+      isbreak = True
+      break
+  if isbreak == True :
+    break
