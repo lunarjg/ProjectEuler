@@ -1,0 +1,17 @@
+nums = [pentagon_num(n) for n in range(1, 10000)]
+diffs = []
+
+def pentagon_num(n) :
+  return int(n * (3 * n - 1) /2)
+
+def inv_pentagon_num(x) :
+  return (1 + (1 + 24 * x) ** 0.5) / 6
+
+for i in range(len(nums)) :
+  for j in range(i + 1, len(nums)) :
+    sum = nums[i] + nums[j]
+    diff = abs(nums[i] - nums[j])
+    if inv_pentagon_num(sum).is_integer() and inv_pentagon_num(diff).is_integer() :
+      diffs.append(diff)
+
+print(diffs)
