@@ -5,13 +5,13 @@ def primes_below(n):
         if sieve[i]:
             for j in range(i*i, n, i):
                 sieve[j] = False
-    return set(i for i, is_prime in enumerate(sieve) if is_prime)
+    return sorted(set(i for i, is_prime in enumerate(sieve) if is_prime))
 
 def k_term_sum(k) :
-  return [sum(list(sorted(primes_below(n)))[i:i+k]) for i in range(len(primes_below(n))-k)]
+  return sorted([sum(primes_below(n)[i:i+k]) for i in range(len(primes_below(n)) - k)])
 
 n = 1000000
-primes = primes_below(n)
+primes = sorted(primes_below(n))
 isbreak = False
 
 for k in range(len(primes) - 1, 1, -1) :
