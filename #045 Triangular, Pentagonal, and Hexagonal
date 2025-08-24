@@ -1,0 +1,21 @@
+def triangular_num(n) :
+  return int(n * (n + 1) /2)
+
+def is_triangular_num(n) :
+  return ((-1 + (1 + 8 * n) ** 0.5) / 2).is_integer()
+
+def is_pentagonal_num(n) :
+  return ((1 + (1 + 24 * n) ** 0.5) / 6).is_integer()
+
+def is_hexagonal_num(n) :
+  return ((1 + (1 + 8 * n) ** 0.5) / 4).is_integer()
+
+n = 286
+
+while True :
+  if is_pentagonal_num(triangular_num(n)) and is_hexagonal_num(triangular_num(n)) :
+    break
+  else :
+    n += 1
+
+print(triangular_num(n))
