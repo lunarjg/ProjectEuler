@@ -1,0 +1,28 @@
+import math
+
+def primes_below(n):
+    sieve = [True] * n
+    sieve[0:2] = [False, False]
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i):
+                sieve[j] = False
+    return set(i for i, is_prime in enumerate(sieve) if is_prime)
+
+def is_prime(n) :
+  if any(n % k == 0 for k in primes_below(math.isqrt(n) + 1)) :
+    return False
+  else :
+    return True
+
+odd = 35
+
+while True :
+  if is_prime(odd) :
+    odd += 2
+  else : 
+    if any((((odd - prime) / 2) ** 0.5).is_integer() for prime in primes_below(odd)) == False :
+      print(odd)
+      break
+    else : 
+      odd += 2
