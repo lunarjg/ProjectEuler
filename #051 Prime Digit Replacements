@@ -9,7 +9,7 @@ def primes_below(n):
                 sieve[j] = False
     return set(i for i, is_prime in enumerate(sieve) if is_prime)
 
-num = 32000
+num = 10000
 button = False
 
 while True : 
@@ -19,8 +19,8 @@ while True :
   for change_num in range(2, len(num_digits)) : # 자릿수 몇 개 바꿀지
     iter = [x for x in range(change_num)] 
     for change_digits in combinations(iter, change_num) : # 어떤 자릿수 바꿀지
+      primes = [] # prime 개수 세기
       for new_num in range(10) : # 어떤 숫자로 바뀔지 
-        primes = [] # prime 개수 세기
         for change_digit in change_digits :
           num_digits[change_digit] = str(new_num)
         if int(''.join(num_digits)) in prime_list : #바뀐 숫자 자릿수 리스트를 숫자로 변환
