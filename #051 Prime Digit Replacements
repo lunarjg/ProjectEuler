@@ -1,0 +1,36 @@
+from itertools import combinations
+
+def primes_below(n):
+    sieve = [True] * n
+    sieve[0:2] = [False, False]
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i):
+                sieve[j] = False
+    return set(i for i, is_prime in enumerate(sieve) if is_prime)
+
+num = 10
+
+while True : 
+  num_digits = [x for x in str(num)] # 숫자를 각 자릿수 리스트로 변환
+  primes = [] # prime 개수 세기
+  prime_list = primes_below(10 ** len(num_digits))
+  button_a = False
+  button_b = False
+
+  for change_num in range(len(num_digits)) : # 자릿수 몇 개 바꿀지
+    iter = [x for x in range(change_num)] 
+    for change_digits in combinations(iter, change_num) : # 어떤 자릿수 바꿀지
+      for new_num in range(10) : # 어떤 숫자로 바뀔지 
+        for change_digit in change_digits :
+          num_digits[change_digit] = str(new_num)
+        if int(''.join(num_digits)) in prime_list : 
+          primes.append(int(''.join(num_digits)))
+      if len(primes) == 8 :
+        print(sorted(primes)[0])
+        button_a = True
+    if button_a == True :
+      break
+  if button_a == True :
+    break
+  num += 1
