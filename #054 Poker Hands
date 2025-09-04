@@ -1,0 +1,33 @@
+card_order = dict({str(num) : num for num in range(2, 10)}, **{'T' : 10, 'J' : 11, 'Q' : 12, 'K' : 13, 'A' : 1})
+
+def hand_result(card_list) :
+  hand_dict = {card_order[card[0]] : card[1] for card in card_list}
+  hand_num = sorted(hand_dict.keys())
+  hand_suit = hand_dict.values()
+  num_count = {num : hand_num.count(num) for num in hand_num}
+
+  if 1 in hand_dict.keys() and all(card in hand_dict.keys() for card in range(10, 14)) : # Royal Flush
+    return (9, 0)
+  elif len(set([hand_num[i] - i for i in range(len(hand_num))])) == 1 and len(set(hand_suit)) == 1 : # Straight Flush
+    return (8, hand_num[-1])
+  elif len(set(hand_num)) == 2 : # Four of a Kind
+    if hand_num.count(hand_num[0]) == 1 :
+      return (7, hand_num[1])
+    elif hand_num.count(hand_num[0]) == 4 :
+      return (7, hand_num[0])
+  elif len(set(hand_num)) == 2 : # Full house
+    if hand_num.count(hand_num[0]) == 2 :
+      return (6, hand_num[1])
+    elif hand_num.count(hand_num[0]) == 3 :
+      return (6, hand_num[0])
+  elif len(set(hand_suit)) == 1 : # Flush
+    return(5, hand_num[-1])
+  elif len(set([hand_num[i] - i for i in range(len(hand_num))])) == 1 : # Straight
+    return (4, hand_num[-1])
+  elif len(set(hand_num)) == 3 : 
+    if 3 in num_count.values() : # Three of a Kind
+      return 
+    elif 2 in num_count.values() : # Two Pairs
+
+
+# print(hand_result(['8C', 'TS', 'KC', '9H', '4S']))
