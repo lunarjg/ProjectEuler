@@ -24,10 +24,12 @@ def hand_result(card_list) :
     return(5, hand_num[-1])
   elif len(set([hand_num[i] - i for i in range(len(hand_num))])) == 1 : # Straight
     return (4, hand_num[-1])
-  elif len(set(hand_num)) == 3 : 
+  elif len(set(hand_num)) == 3 :
     if 3 in num_count.values() : # Three of a Kind
-      return 
+      return (3, [k for k , v in num_count.items() if v == 3][0])
     elif 2 in num_count.values() : # Two Pairs
-
-
-# print(hand_result(['8C', 'TS', 'KC', '9H', '4S']))
+      return (2, sorted([k for k , v in num_count.items() if v == 2])[1])
+  elif len(set(hand_num)) == 4 : # One Pair
+    return(1, sorted([k for k , v in num_count.items() if v == 2])[0])
+  else :
+    return (0, max(hand_num))
