@@ -1,35 +1,49 @@
-card_order = dict({str(num) : num for num in range(2, 10)}, **{'T' : 10, 'J' : 11, 'Q' : 12, 'K' : 13, 'A' : 1})
+card_order = dict({str(num) : num - 1 for num in range(2, 10)}, **{'T' : 9, 'J' : 10, 'Q' : 11, 'K' : 12, 'A' : 0})
 
 def hand_result(card_list) :
-  hand_dict = {card_order[card[0]] : card[1] for card in card_list}
-  hand_num = sorted(hand_dict.keys())
-  hand_suit = hand_dict.values()
+  hand_suit = [card[1] for card in card_list]
+  hand_num = [card_order[card[0]] for card in card_list]
+  compare_num = sorted([x or 13 for x in hand_num], reverse = True)
+  print(hand_num)
+  print(compare_num)
   num_count = {num : hand_num.count(num) for num in hand_num}
+  print(num_count)
 
-  if 1 in hand_dict.keys() and all(card in hand_dict.keys() for card in range(10, 14)) : # Royal Flush
+  if 1 in hand_num and all(card in hand_num for card in range(10, 14)) : # Royal Flush
     return (9, 0)
+
   elif len(set([hand_num[i] - i for i in range(len(hand_num))])) == 1 and len(set(hand_suit)) == 1 : # Straight Flush
-    return (8, hand_num[-1])
+    return tuple([8] + compare_num)
+
   elif len(set(hand_num)) == 2 : # Four of a Kind
     if hand_num.count(hand_num[0]) == 1 :
-      return (7, hand_num[1])
+      return tuple([7] + hand_num[1])
     elif hand_num.count(hand_num[0]) == 4 :
-      return (7, hand_num[0])
+      return tuple([7] + hand_num[0])
+      
   elif len(set(hand_num)) == 2 : # Full house
     if hand_num.count(hand_num[0]) == 2 :
-      return (6, hand_num[1])
+      return tuple([6] + compare_num)
     elif hand_num.count(hand_num[0]) == 3 :
-      return (6, hand_num[0])
+      return tuple([6] + compare_num)
+
   elif len(set(hand_suit)) == 1 : # Flush
-    return(5, hand_num[-1])
-  elif len(set([hand_num[i] - i for i in range(len(hand_num))])) == 1 : # Straight
-    return (4, hand_num[-1])
+    return tuple([5] + compare_num)
+
+  elif len(set([hand_num[i] - i for i in range(5)])) == 1 : # Straight
+    return tuple([4] + compare_num)
+
   elif len(set(hand_num)) == 3 :
     if 3 in num_count.values() : # Three of a Kind
-      return (3, [k for k , v in num_count.items() if v == 3][0])
+      return (3, [k for k , v in num_count.items() if v == 3][0] or 13)
     elif 2 in num_count.values() : # Two Pairs
-      return (2, sorted([k for k , v in num_count.items() if v == 2])[1])
+      return (2, sorted([k for k , v in num_count.items() if v == 2])[1] or 13)
+
   elif len(set(hand_num)) == 4 : # One Pair
-    return(1, sorted([k for k , v in num_count.items() if v == 2])[0])
+    return(1, [k for k , v in num_count.items() if v == 2][0] or 13)
+
   else :
-    return (0, max(hand_num))
+    return (0, hand_num[-1] or 13)
+
+hand = input().split()
+print(hand_result(hand))
