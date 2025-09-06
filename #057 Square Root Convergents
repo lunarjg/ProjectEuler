@@ -1,18 +1,16 @@
 from functools import cache
 
 def gcd(a,b) :
-  facs = []
-  for k in range(1, min(a,b) + 1) :
-    if a % k == 0 and b % k == 0 :
-      facs.append(k)
-  facs.sort()
-  return facs[-1]
+  if b == 0 :
+    return a
+  else :
+    return gcd(b, a % b)
 
 @cache
 def n_th_fraction(n) :
   if n == 1 :
     return (3, 2)
-  else : 
+  else :
     a = 2 * n_th_fraction(n-1)[1] + n_th_fraction(n-1)[0]
     b = n_th_fraction(n-1)[1] + n_th_fraction(n-1)[0]
     return (a // gcd(a,b), b // gcd(a,b))
@@ -20,7 +18,9 @@ def n_th_fraction(n) :
 result = 0
 
 for n in range(1, 1000) :
-  if len(str(n_th_fraction(n)[0])) > len(str(n_th_fraction(n)[1])) :
+  fraction = n_th_fraction(n)
+  print(n)
+  if len(str(fraction[0])) > len(str(fraction[1])) :
     result += 1
-  
+
 print(result)
