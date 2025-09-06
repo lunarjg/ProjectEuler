@@ -6,7 +6,7 @@ def hand_result(card_list) :
   card_order = sorted([x or 13 for x in hand_num], reverse = True) # 카드 숫자 내림차순, 에이스 숫자는 13으로 변경
   num_count = {num : hand_num.count(num) for num in hand_num}
 
-  if 1 in hand_num and all(card in hand_num for card in range(10, 14)) : # Royal Flush
+  if 0 in hand_num and all(card in hand_num for card in range(9, 13)) : # Royal Flush
     return (9, 0)
 
   elif len(set([hand_num[i] - i for i in range(5)])) == 1 and len(set(hand_suit)) == 1 : # Straight Flush
