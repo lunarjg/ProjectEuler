@@ -1,32 +1,28 @@
-card_order = dict({str(num) : num - 1 for num in range(2, 10)}, **{'T' : 9, 'J' : 10, 'Q' : 11, 'K' : 12, 'A' : 0})
+card2num = dict({str(num) : num - 1 for num in range(2, 10)}, **{'T' : 9, 'J' : 10, 'Q' : 11, 'K' : 12, 'A' : 0})
 
 def hand_result(card_list) :
-  # hand_dict = {card_order[card[0]] : card[1] for card in card_list}
   hand_suit = [card[1] for card in card_list]  # 카드 모양
-  hand_num = sorted([card_order[card[0]] for card in card_list]) # 카드 숫자
-  compare_num = sorted([x or 13 for x in hand_num], reverse = True) # 카드 숫자 내림차순, 에이스 숫자는 13으로 변경
-  print(hand_num)
-  print(compare_num)
+  hand_num = sorted([card2num[card[0]] for card in card_list]) # 카드 숫자
+  card_order = sorted([x or 13 for x in hand_num], reverse = True) # 카드 숫자 내림차순, 에이스 숫자는 13으로 변경
   num_count = {num : hand_num.count(num) for num in hand_num}
-  print(num_count)
 
   if 1 in hand_num and all(card in hand_num for card in range(10, 14)) : # Royal Flush
     return (9, 0)
 
   elif len(set([hand_num[i] - i for i in range(5)])) == 1 and len(set(hand_suit)) == 1 : # Straight Flush
-    return (8, compare_num[0])
+    return (8, card_order[0])
 
-  elif len(set(hand_num)) == 2 : 
+  elif len(set(hand_num)) == 2 :
     if 4 in num_count.values() : # Four of a Kind
       return (7, [k for k , v in num_count.items() if v == 4][0] or 13)
     elif 3 in num_count.values() : # Full house
       return (6, [k for k , v in num_count.items() if v == 3][0] or 13)
 
   elif len(set(hand_suit)) == 1 : # Flush
-    return tuple([5] + compare_num)
+    return tuple([5] + card_order)
 
   elif len(set([hand_num[i] - i for i in range(5)])) == 1 : # Straight
-    return (4, compare_num[0])
+    return (4, card_order[0])
 
   elif len(set(hand_num)) == 3 :
     if 3 in num_count.values() : # Three of a Kind
@@ -38,7 +34,20 @@ def hand_result(card_list) :
     return tuple([1] + [k or 13 for k , v in num_count.items() if v == 2] + sorted([k or 13 for k , v in num_count.items() if v == 1], reverse = True))
 
   else :
-    return (0, compare_num[-1])
+    return tuple([0] + card_order)
 
-hand = input().split()
-print(hand_result(hand))
+player_one_wins = 0
+ten_cards = []
+hands = []
+
+cards = input().split()
+for n in range(len(cards) // 10) :
+  ten_cards.append(cards[10 * n : 10 * (n + 1)])
+for ten_card in ten_cards :
+  hands.append([ten_card[:5], ten_card[5:]])
+
+for game in hands :
+  if hand_result(game[0]) > hand_result(game[1]) :
+    player_one_wins += 1
+
+print(player_one_wins) 
