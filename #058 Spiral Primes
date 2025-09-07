@@ -1,16 +1,7 @@
+import math
 from functools import cache
 
-@cache
-def primes_below(n):
-    sieve = [True] * n
-    sieve[0:2] = [False, False]
-    for i in range(2, int(n**0.5) + 1):
-        if sieve[i]:
-            for j in range(i*i, n, i):
-                sieve[j] = False
-    return set(i for i, is_prime in enumerate(sieve) if is_prime)
-
-def n_th_layer_nums(n) :
+def nth_layer_nums(n) :
   if n == 1 :
     return [1]
   else :
@@ -18,24 +9,24 @@ def n_th_layer_nums(n) :
     d = 2*(n-1)
     return [a-d, a-2*d, a-3*d]
 
+@cache
 def sum_layer_primes (n) :
-  count = 0
-  primes = primes_below((2*n -1) ** 2 - 2*(n-1) + 1)
-  nums = []
-  for k in range(1, n + 1) :
-    nums += n_th_layer_nums(k)
-  for num in nums :
-    if num in primes :
-      count += 1
-  return count
+  if n == 1 :
+    return 0
+  else :
+    count = 0
+    for num in nth_layer_nums(n) :
+      if all(num % i != 0 for i in range(2, math.isqrt(num))) :
+        count += 1
+    return sum_layer_primes(n-1) + count
 
-ratio = 1
-n = 2500
+n = 300
 
 while True :
-  print(n)
-  if 10 * sum_layer_primes(n) < 4*(n-1) + 1 :
+  ratio = sum_layer_primes(n) / (4*(n-1) + 1)
+  print(n, ratio)
+  if ratio < 0.1 :
     print(n)
     break
-  else : 
+  else :
     n += 1
