@@ -1,0 +1,27 @@
+import math
+
+def process(r) : # r = [N, b, a] = (sqrt(N) - b) / a
+  A = int((r[0] - r[1]**2) / r[2])
+  comp = int(((math.sqrt(r[0]) + r[1]) / A) // 1)
+  return [r[0], comp * A - r[1], A], comp
+def cont_frac(N) :
+  b = int(math.isqrt(N))
+  r = [N, b, 1] # r = (sqrt(N) - b) / 1
+  seq = []
+  flag = False
+  if N == b ** 2 :
+    return None
+  else :
+    while flag == False or [N, b, 1] != r :
+      r, comp = process(r)
+      seq.append(comp)
+      flag = True
+  return seq
+
+count = 0
+
+for N in [n for n in range(10001) if math.sqrt(n) != math.isqrt(n)] :
+  if len(cont_frac(N)) % 2 != 0 :
+    count += 1
+
+print(count)
