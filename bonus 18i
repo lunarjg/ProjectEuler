@@ -1,0 +1,25 @@
+def primes_below(n):
+    sieve = [True] * n
+    sieve[0:2] = [False, False]
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i):
+                sieve[j] = False
+    return sorted(set(i for i, is_prime in enumerate(sieve) if is_prime))
+
+def R(p) : 
+  product = 1
+  for x in range(p) :
+    product *= (x**3 - 3*x +4) % p
+  return product % p
+
+r_sum = 0
+
+for p in range(1000000001, 1100000000, 2) :
+  primes = primes_below(int(1100000000 ** 0.5) + 1)
+  print(primes)
+  if all(p % i != 0 for i in primes) :
+    print(p)
+    r_sum += R(p)
+
+print(r_sum)
