@@ -12,8 +12,12 @@ def g(n, x) :
   if n == 1 :
     return f(0, x)
   else :
-    return f(n-1, g(n-1, x))
+    return Fraction(a[n-1] * g(n-1, x).numerator + g(n-1, x).denominator, g(n-1, x).numerator)
 
-n = 0
+def seq(n) :
+  if n == 1 :
+    return a[0]
+  else :
+    return g(n-1, a[n-1])
 
-print(g(n, a[n]))
+print(seq(3))
