@@ -7,19 +7,23 @@ def primes_below(n):
                 sieve[j] = False
     return sorted(set(i for i, is_prime in enumerate(sieve) if is_prime))
 
-def R(p) : 
-  product = 1
-  for x in range(p) :
-    product *= (x**3 - 3*x +4) % p
+def R(p) :
+  def f(x) :
+    return int((x**3 - 3*x)/2)
+  
+  product = 4
+  for x in range(1, int((p+1)/2)) :
+    product *= (4 - f(x)**2) % p
   return product % p
 
-r_sum = 0
+print(R(1000000007))
 
-for p in range(1000000001, 1100000000, 2) :
-  primes = primes_below(int(1100000000 ** 0.5) + 1)
-  print(primes)
-  if all(p % i != 0 for i in primes) :
-    print(p)
-    r_sum += R(p)
+# r_sum = 0
 
-print(r_sum)
+# for p in range(1000000009, 1100000000, 2) :
+#   print(p)
+#   primes = primes_below(int(1100000000 ** 0.5) + 1)
+#   if all(p % i != 0 for i in primes) :
+#     r_sum += R(p)
+
+# print(r_sum)
