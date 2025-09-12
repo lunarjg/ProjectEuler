@@ -5,19 +5,14 @@ a = [2,1]
 for k in range(1, 34) :
   a+=[2*k, 1, 1]
 
-def f(n, x) :
-  return Fraction(a[n] * x + 1, x)
-
-def g(n, x) :
-  if n == 1 :
-    return f(0, x)
-  else :
-    return Fraction(a[n-1] * g(n-1, x).numerator + g(n-1, x).denominator, g(n-1, x).numerator)
-
 def seq(n) :
   if n == 1 :
     return a[0]
   else :
-    return g(n-1, a[n-1])
+    value = a[n-1]
+    for k in range(n - 2, -1 , -1):
+      value = Fraction(1, value)
+      value += a[k]
+    return value
 
-print(seq(3))
+print(sum(int(x) for x in str(seq(100).numerator)))
