@@ -1,0 +1,57 @@
+import math
+from fractions import Fraction
+
+def process(r) : # r = [N, b, a] = (sqrt(N) - b) / a
+  A = int((r[0] - r[1]**2) / r[2])
+  comp = int(((math.sqrt(r[0]) + r[1]) / A) // 1)
+  return [r[0], comp * A - r[1], A], comp
+
+def cont_frac(N) :
+  b = int(math.isqrt(N))
+  r = [N, b, 1] # r = (sqrt(N) - b) / 1
+  seq = [b]
+  flag = False
+  if N == b ** 2 :
+    return None
+  else :
+    while flag == False or [N, b, 1] != r :
+      r, comp = process(r)
+      seq.append(comp)
+      flag = True
+  return seq
+
+def seq(N, n) :
+  if n == 1 :
+    return cont_frac(N)[0]
+  else :
+    value = cont_frac(N)[n-1]
+    for k in range(n - 2, -1 , -1):
+      value = Fraction(1, value)
+      value += cont_frac(N)[k]
+    return value
+
+def dio_solution(D) :
+  period = cont_frac(D)[1:]
+  if len(period) % 2 == 0 :
+    seq = cont_frac(D)[:-1]
+  else :
+    seq = cont_frac(D) + period[:-1]
+  # print(cont_frac(D), seq)/
+  n = len(seq)
+  if n == 1 :
+    return seq[0]
+  else : 
+    value = seq[n-1]
+    for k in range(n - 2, -1 , -1):
+      value = Fraction(1, value)
+      value += seq[k]
+    return value.numerator
+
+max_sol = 0
+d_val = 0
+
+for D in [n for n in range(2, 1001) if n ** 0.5 % 1 != 0] :
+  if dio_solution(D) > max_sol : 
+    max_sol, d_val = dio_solution(D), D
+
+print(d_val)
