@@ -1,0 +1,39 @@
+from fractions import Fraction
+from functools import cache
+import math
+
+def primes_below(n):
+    sieve = [True] * n
+    sieve[0:2] = [False, False]
+    for i in range(2, int(n**0.5) + 1):
+        if sieve[i]:
+            for j in range(i*i, n, i):
+                sieve[j] = False
+    return set(i for i, is_prime in enumerate(sieve) if is_prime)
+
+primes = sorted(primes_below(1000000))
+
+@cache
+def phi(n) :
+  if n == 1:
+    return 1
+  elif n in primes :
+    return n-1
+  else :
+    for p in primes :
+      if n % p == 0 :
+        exp = 0
+        while n % p == 0 :
+          exp += 1
+          n = int(n/p)
+        return p**(exp-1) * (p-1) * phi(n)
+
+max_val = 0
+max_n = 0
+
+for n in range(2,1000001) :
+  print(n)
+  if n not in primes and n / phi(n) > max_val :
+    max_val, max_n = n / phi(n), n
+
+print(max_n)
