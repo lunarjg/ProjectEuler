@@ -1,4 +1,3 @@
-from fractions import Fraction
 from functools import cache
 import math
 
@@ -17,10 +16,10 @@ primes = sorted(primes_below(1000000))
 def phi(n) :
   if n == 1:
     return 1
-  elif n in primes :
+  elif n in primes[:n] :
     return n-1
   else :
-    for p in primes :
+    for p in primes[:n] :
       if n % p == 0 :
         exp = 0
         while n % p == 0 :
@@ -32,7 +31,6 @@ max_val = 0
 max_n = 0
 
 for n in range(2,1000001) :
-  print(n)
   if n not in primes and n / phi(n) > max_val :
     max_val, max_n = n / phi(n), n
 
