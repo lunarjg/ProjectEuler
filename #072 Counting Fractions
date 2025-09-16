@@ -1,0 +1,28 @@
+from numba import jit
+from fractions import Fraction
+import math
+
+@jit(nopython=True)
+def phi(n) :
+  if n == 0:
+      return 0
+  result = n
+  i = 2
+  while i * i <= n:
+    if n % i == 0:
+      while n % i == 0:
+        n //= i
+      result -= result // i
+    i += 1
+  if n > 1:
+    result -= result // n
+  return result
+
+@jit(nopython=True)
+def find_index(limit) :
+  result = 0
+  for d in range(2, limit + 1) :
+    result += phi(d) 
+  return result   
+
+print(find_index(1000000))
