@@ -1,13 +1,13 @@
 import numpy as np
-from numba import jit
 
-count = 1
+lengths = [12]
+count = 0
 A = np.array([[1, -2, 2], [2, -1, 2], [2, -2, 3]])
 B = np.array([[1, 2, 2,], [2, 1, 2], [2, 2, 3]])
 C = np.array([[-1, 2, 2], [-2, 1, 2], [-2, 2, 3]])
 
 def make_children(column) :
-  return [m for m in [A @ column.transpose(), B @ column.transpose(), C @ column.transpose()] if sum(m) < 15000]
+  return [m for m in [A @ column.transpose(), B @ column.transpose(), C @ column.transpose()] if sum(m) < 1500000]
 
 layer = [np.array([3,4,5])]
 
@@ -15,7 +15,19 @@ while len(layer) != 0 :
   triplets = []
   for m in layer :
     triplets += make_children(m)
-  count += len(triplets)
+  # count += len(triplets)
+  for triple in triplets :
+    lengths.append(int(sum(triple)))
   layer = triplets
+
+nums = [0] * 1500001
+
+for num in lengths :
+  for k in range(1, 1500001 // num + 1) :
+    nums[k * num] += 1
+
+for n in nums :
+  if n == 1:
+    count += 1
 
 print(count)
