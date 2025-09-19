@@ -1,6 +1,8 @@
+from functools import lru_cache
+
+@lru_cache
 def count_sum(n, limit) :
-  if n < limit :
-    limit = n
+  limit = min(n, limit)
   if n == 0 :
     return 1
   elif n == 1 or limit == 1 :
