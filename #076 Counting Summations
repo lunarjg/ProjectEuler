@@ -1,0 +1,11 @@
+def count_sum(n, limit) :
+  if n < limit :
+    limit = n
+  if n == 0 :
+    return 1
+  elif n == 1 or limit == 1 :
+    return 1
+  else :
+    return sum(count_sum(n-k, k) for k in range(1, limit + 1))
+
+print(count_sum(100, 99))
