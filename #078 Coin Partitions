@@ -1,0 +1,17 @@
+from functools import lru_cache
+
+@lru_cache
+def count_sum(n, limit) :
+  limit = min(n, limit)
+  if n == 0 :
+    return 1
+  elif n == 1 or limit == 1 :
+    return 1
+  else :
+    return sum(count_sum(n-k, k) for k in range(1, limit + 1))
+
+n = 90
+while count_sum(n, n) % 1000000 != 0 :
+  print(n)
+  n += 1
+print(n)
